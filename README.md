@@ -1,9 +1,9 @@
-# JUDUL_PROYEK
+# SISTEM PELAYANAN RESTORAN
 
 Anggota Kelompok:
-* NAMA (NPM)
-* NAMA (NPM)
-* NAMA (NPM)
+* Rihlan Lumenda Suherman   (140810200013)
+* Raihan Fadhlal Aziz			  (140810200025)
+* Adnan Rafiyansyah Majid		(140810200029)
 ---
 ## Latar Belakang
 
