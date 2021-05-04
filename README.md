@@ -44,7 +44,7 @@ dibebaskan sesuai kreatifitas kalian
 
 
 ## Rencana Pengerjaan Projek
-Kami menggunakan beberapa tools seperti google docs, github, dan visual studio code untuk pengerjaan proyek. Selain itu, antar anggota kelompok berkoordinasi melalui google meet, discord, dan line. Untuk pembagian tugas, kami saling membantu di setiap bagian program yang dikerjakan dan belum ada pembagian tugas yang spesifik.
+Kami menggunakan beberapa tools seperti draw.io, google docs, github, dan visual studio code untuk pengerjaan proyek. Selain itu, antar anggota kelompok berkoordinasi melalui google meet, discord, dan line. Untuk pembagian tugas, kami saling membantu di setiap bagian program yang dikerjakan dan belum ada pembagian tugas yang spesifik.
 
 <!--
 Dalam kondisi pandemi seperti ini, tidak memungkinkan untuk bertemu bertatap muka. Maka dari itu
