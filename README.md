@@ -6,7 +6,7 @@ Anggota Kelompok:
 * Adnan Rafiyansyah Majid		(140810200029)
 ---
 ## Latar Belakang
-  Dalam bidang kuliner, masih terdapat banyak pelaku usaha yang melakukan pencatatan transaksi secara manual yang dianggap kurang efisien.  Selain itu, beberapa permasalahan dalam sistem pelayanan restoran seperti kesalahan pencatatan menu yang dipilih pelanggan, kesalahan dalam perhitungan total biaya,  kesalahan nomor urut antrian, ataupun hilangnya catatan transaksi suatu restoran dapat meningkatkan resiko kerugian yang dialami oleh restoran.
+  Dalam bidang kuliner, masih terdapat banyak pelaku usaha yang melakukan pencatatan transaksi secara manual yang dianggap kurang efisien.  Selain itu, beberapa permasalahan dalam sistem pelayanan restoran seperti kesalahan pencatatan menu yang dipilih pelanggan, kesalahan dalam perhitungan total biaya,  kesalahan nomor urut antrian, ataupun hilangnya catatan transaksi suatu restoran dapat meningkatkan risiko kerugian yang dialami oleh restoran.
 	
 Oleh karena itu, kami memiliki ide untuk membuat suatu program pelayanan restoran yang memiliki fitur untuk memproses antrian berdasarkan skala prioritas, sistem pembayaran pesanan, menampilkan laporan penjualan, dan update persediaan suatu menu pada restoran berbasis bahasa C/C++ dengan antarmuka menggunakan Command Line Interface.
 
@@ -28,12 +28,14 @@ Program sistem pelayanan restoran direncanakan memiliki enam fungsi utama, antar
  - Proses Pesanan : Berfungsi memproses pesanan pelanggan dengan memperhatikan skala prioritas yang diinputkan pada fungsi tambah pesanan
  - Checkout : Pembayaran pesanan oleh pelanggan
  - Laporan Penjualan : Daftar transaksi yang telah dilakukan
- - Update Stok Menu : Berfungsi untuk mengupdate stok makanan tertentu
+ - Update Stok Makanan : Berfungsi untuk mengupdate stok makanan tertentu
  - Cara Penggunaan Program : Berfungsi untuk menampilkan tata cara pengoperasian program
  - Exit Program : Fungsi untuk keluar dari program
 
 
 ## Gambar Rancangan Antar Muka
+Untuk gambar rancangan, dapat diakses melalui [project-strukdat-restoran](https://drive.google.com/file/d/16OoHlhstWNXbA8a19OBrudE53OJ0JlGN/view?usp=sharing)  
+Bila link draw.io tidak dapat diakses, silakan chat kami melalui discord
 <!--
 Buat rancangan antar muka selengkap mungkin sesuai fungsi aplikasinya. rancangan antar muka
 diusahakan serapih dan seindah mungkin. tools yang digunakan dalam pembuatan rancangan gambar
