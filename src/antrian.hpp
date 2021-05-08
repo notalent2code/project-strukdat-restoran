@@ -4,7 +4,6 @@
 // #include "structs.h"
 void enqueueAntrian(){
     DataPelanggan *newPelanggan = new DataPelanggan;
-    // cin.ignore();
     newPelanggan->insertDataPelanggan();
     DataPelanggan *pPrev = nullptr;
     DataPelanggan *pHelp = queuePelanggan.head;
@@ -62,18 +61,19 @@ void enqueueAntrian(){
 
 // fungsi untuk dequeue antrian
 void dequeueAntrian(DataPelanggan *&temp){
-    if (queuePelanggan.head == nullptr && queuePelanggan.tail == nullptr) {
+    temp = queuePelanggan.head;
+    if (queuePelanggan.head == nullptr && queuePelanggan.tail == nullptr){
         temp = nullptr;
     }
-    else if (queuePelanggan.head->next == nullptr)  {
+    else if (queuePelanggan.head->next == nullptr){
         queuePelanggan.head = nullptr;
         queuePelanggan.tail = nullptr;
     }
     else{
         temp = queuePelanggan.head;
         queuePelanggan.head = queuePelanggan.head->next; 
-        temp->next = nullptr;
     }
+    temp->next = nullptr;
     // temp = queuePelanggan.head;
     // if (queuePelanggan.head->next == nullptr){
     //     queuePelanggan.head = nullptr;
@@ -84,6 +84,10 @@ void dequeueAntrian(DataPelanggan *&temp){
     // temp->next = nullptr;
 }
 
+// fungsi untuk pop by key pada queue
+// void popByKey(){
+
+// }
 // fungsi untuk cancel pesanan
 // void cancelPesanan(){
 //     system("cls");
@@ -97,45 +101,46 @@ void dequeueAntrian(DataPelanggan *&temp){
 //         fail();
 //         cout << "Input salah !\n";        
 //     }
+    
+//     // DataPelanggan *pDelete = nullptr;
 //     if (queuePelanggan.head == nullptr && queuePelanggan.tail == nullptr){
 //         cout << "Antrian pesanan kosong !\n";
 //         return;
 //     }
-//     else if (queuePelanggan.head->next == nullptr && queuePelanggan.head->nomorOrder == nomorOrder){
-//         DataPelanggan *pDelete = queuePelanggan.head;
-//         queuePelanggan.head == nullptr;
-//         queuePelanggan.tail == nullptr;
-//         flag = 1;
-//     }
-//     else{
-//         DataPelanggan *pPrev = nullptr;
-//         DataPelanggan *pDelete = nullptr;
-//         DataPelanggan *pHelp = queuePelanggan.head;
-//         while(pHelp->next != nullptr){
-//             if (pHelp->next == queuePelanggan.tail && pHelp->next->nomorOrder == nomorOrder){
-//                 pPrev = pHelp;
-//                 pDelete = pPrev->next;
-//                 queuePelanggan.tail = queuePelanggan.head;
-//                 pPrev->next = nullptr;
-//                 flag = 1;
-//             }
-//             else if (pHelp->next->nomorOrder == nomorOrder){
-//                 pPrev = pHelp;
-//                 pDelete = pPrev->next;
-//                 pPrev->next = pHelp->next->next;
-//                 pDelete->next = nullptr;
-//                 flag = 1;
-//             }
-//             pHelp = pHelp->next;
-//         }
-//         delete pDelete;
-//     }
-//     if (flag == 1){
-//         cout << "Pesanan dengan No. Order : " << nomorOrder << " telah dibatalkan !\n";
-//     }
-//     else {
-//         cout << "Nomor order tidak ditemukan !\n";
-//     }
+    // else if (queuePelanggan.head->next == nullptr && queuePelanggan.head->nomorOrder == nomorOrder){
+    //     pDelete = queuePelanggan.head;
+    //     queuePelanggan.head == nullptr;
+    //     queuePelanggan.tail == nullptr;
+    //     flag = 1;
+    // }
+    // else{
+    //     DataPelanggan *pPrev = nullptr;
+    //     DataPelanggan *pHelp = queuePelanggan.head;
+    //     while(pHelp->next != nullptr){
+    //         if (pHelp->next == queuePelanggan.tail && pHelp->next->nomorOrder == nomorOrder){
+    //             pPrev = pHelp;
+    //             pDelete = pPrev->next;
+    //             queuePelanggan.tail = queuePelanggan.head;
+    //             pPrev->next = nullptr;
+    //             flag = 1;
+    //         }
+    //         else if (pHelp->next->nomorOrder == nomorOrder){
+    //             pPrev = pHelp;
+    //             pDelete = pPrev->next;
+    //             pPrev->next = pHelp->next->next;
+    //             pDelete->next = nullptr;
+    //             flag = 1;
+    //         }
+    //         pHelp = pHelp->next;
+    //     }
+    //     delete pDelete;
+    // }
+    // if (flag == 1){
+    //     cout << "Pesanan dengan No. Order : " << nomorOrder << " telah dibatalkan !\n";
+    // }
+    // else {
+    //     cout << "Nomor order tidak ditemukan !\n";
+    // }
 // }
 
 // fungsi untuk traversal antrian
@@ -146,6 +151,10 @@ void traversalAntrian(){
         cout << "Antrian kosong !\n";
     } else {
         system("cls");
+        printBatas();
+        cout << "\t\tSISTEM PELAYANAN RESTORAN\n";
+        printBatas();
+        cout << "\t\t  Antrian Pesanan\n";
         do {
             printBatas();
             cout << "\t\t  Antrian ke-" << count << "\n";
@@ -171,6 +180,11 @@ void detailPesanan(){
     }
     DataPelanggan *pHelp = queuePelanggan.head;
     if (pHelp == nullptr){
+        system("cls");
+        printBatas();
+        cout << "\t\tSISTEM PELAYANAN RESTORAN\n";
+        printBatas();
+        cout << "\t\t  Menu Detail Pesanan\n";
         cout << "Antrian kosong !\n";
     }
     else {
@@ -179,9 +193,11 @@ void detailPesanan(){
                 flag = 1;
                 system("cls");
                 printBatas();
-                cout << "\t\t\tDetail Pesanan\n";
+                cout << "\t\tSISTEM PELAYANAN RESTORAN\n";
                 printBatas();
+                cout << "\t\t  Menu Detail Pesanan\n";
                 pHelp->printDataPelanggan();
+                printBatas();
                 break;
             } else {
                 pHelp=pHelp->next;
@@ -195,34 +211,33 @@ void detailPesanan(){
 
 // fungsi untuk menu antrian pesanan
 void menuAntrian(){
-    enum enumMenuAntrianPesanan
-    {
+    enum enumMenuAntrianPesanan{
         TAMBAHPESANAN = 1,
-        BATALKANPESANAN,
+        // BATALKANPESANAN,
         LIHATANTRIAN,
         PRINTDETAIL
     };
-    int select;
     system("cls");
     printBatas();
     cout << "\t\tSISTEM PELAYANAN RESTORAN\n";
     printBatas();
     cout << "\t\t  Menu Antrian Pesanan\n"
             "1. Tambah Pesanan\n"
-            "2. Batalkan Pesanan\n"
-            "3. Lihat Antrian\n"
-            "4. Cetak Detail Pesanan\n";
+            // "2. Batalkan Pesanan\n"
+            "2. Lihat Antrian\n"
+            "3. Cetak Detail Pesanan\n";
             printBatas();
-    cout << "Masukkan pilihan (1-4) : ";
+    int select;           
+    cout << "Masukkan pilihan (1-3) : ";
     cin >> select;
     printBatas();
     switch (select){
         case TAMBAHPESANAN:
             enqueueAntrian();
             break;
-        case BATALKANPESANAN:
+        // case BATALKANPESANAN:
             // cancelPesanan();
-            break;
+            // break;
         case LIHATANTRIAN:
             traversalAntrian();
             break;

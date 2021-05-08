@@ -60,7 +60,7 @@ struct detailHidangan {
 // struct untuk menyimpan data detail
 struct Hidangan {
     int nomorOrder;
-    int decision;
+    int select;
     int quantity;
     string namaHidangan;
     float harga = 0;
@@ -86,13 +86,23 @@ struct Hidangan {
         // input pilihan hidangan
         while (true){
             cout << "Pilih hidangan (1-3) : ";
-            cin >> decision;
-            if (!cin.fail() && (decision >= 1 && decision <= 3)){
+            cin >> select;
+            if (!cin.fail() && ::detail.stok[select] == 0){
+                quantity = 0;
+                cout << "Stok hidangan habis !\n";
+                break;
+            }            
+            if (!cin.fail() && (select >= 1 && select <= 3)){
                 while (true){
                     cout << "Berapa banyak ? : ";
                     cin >> quantity;
-                    if (!cin.fail() && (quantity > 0 && quantity <= ::detail.stok[decision])){
-                        ::detail.quantity[decision] = quantity;
+                    if (!cin.fail() && (quantity > 0 && quantity <= ::detail.stok[select])){
+                        ::detail.quantity[select] = quantity;
+                        namaHidangan = ::detail.hidangan[select];
+                        quantity = ::detail.quantity[select];
+                        harga = ::detail.harga[select]; 
+                        subtotal = quantity * harga;                          
+                        ::detail.stok[select] -= quantity;
                         break;
                     }
                     fail();
@@ -103,19 +113,17 @@ struct Hidangan {
             fail();
             cout << "Input salah !\n";
         }
-        namaHidangan = ::detail.hidangan[decision];
-        quantity = ::detail.quantity[decision];
-        harga = ::detail.harga[decision]; 
-        subtotal = quantity * harga;  
-        }
+    }
 };
 
 // struct untuk menyimpan data pelanggan
 struct DataPelanggan {
     int nomorOrder;
     string nama;
+    string timestamp;
     int layanan;
-    int totalBiaya;
+    float biayaLayanan;
+    float totalBiaya;
     Hidangan *listHidangan;
     DataPelanggan *next;
 
@@ -126,6 +134,13 @@ struct DataPelanggan {
         next = nullptr;
     }
 
+    // fungsi untuk generate timestamp
+    string getTime(){
+        time_t curr_time;
+	    curr_time = time(0);
+	    return ctime(&curr_time);
+    }
+
     // fungsi untuk insersi data pelanggan
     void insertDataPelanggan(){
         int count = 1;
@@ -134,6 +149,7 @@ struct DataPelanggan {
         cout << "Masukkan nama pelanggan : ";
         getline(cin, nama);
         printBatas();
+        timestamp = getTime();
         cout << "Jenis layanan :\n";
         for (int i=1; i<=2; i++){
             cout << i << " - " << ::layanan.nama[i] <<"\n";
@@ -191,12 +207,19 @@ struct DataPelanggan {
     void traversalHidangan(){
         Hidangan *pHelp = listHidangan;
         while (pHelp != nullptr){
-            cout << "\t\t\t  " << pHelp->namaHidangan << " - " << pHelp->quantity << " pcs - @Rp " << pHelp->harga << "\t= " << pHelp->subtotal << "\n";
+            if (pHelp->quantity == 0){
+                pHelp = pHelp->next;
+            }
+            else{
+            cout << "\t\t\t  " << pHelp->namaHidangan << " - " << pHelp->quantity << " pcs - @Rp "
+                 << pHelp->harga << "\t= Rp " << fixed << setprecision(0) << pHelp->subtotal << "\n";
             pHelp = pHelp->next;
+            }
         }
     }
     // fungsi untuk menghitung total biaya int layanan, float subtotal
-    float countTotal(){
+    void countTotal(float &biayaLayanan, float &totalBiaya){
+        biayaLayanan = 0;
         totalBiaya = 0;
         Hidangan *pHelp = listHidangan;
         while (pHelp != nullptr){
@@ -204,7 +227,10 @@ struct DataPelanggan {
             pHelp = pHelp->next;
             
         }
-        return totalBiaya;
+        if (layanan == ::layanan.VIP){
+            biayaLayanan = totalBiaya * 0.1;
+        }
+        totalBiaya += biayaLayanan;
         // if (layanan == ::layanan.REGULER){
         // //     totalBiaya = subtotal;
         // }else if (layanan == ::layanan.VIP){
@@ -216,9 +242,13 @@ struct DataPelanggan {
         cout << "Nomor Order\t\t: " << nomorOrder << "\n";
         cout << "Nama Pelanggan\t\t: " << nama << "\n";
         cout << "Layanan\t\t\t: " << ::layanan.nama[layanan] << "\n";
+        cout << "Tanggal Transaksi\t: " << timestamp << "\n";
         cout << "Hidangan yang dipesan\t: \n";
         traversalHidangan();
-        cout << "Total Biaya\t\t: Rp " << countTotal() << "\n";
+        countTotal(biayaLayanan, totalBiaya);
+        cout << "Subtotal\t\t: Rp " << fixed << setprecision(0) << totalBiaya - biayaLayanan << "\n";
+        cout << "Biaya Layanan\t\t: Rp " << biayaLayanan << "\n";
+        cout << "Total Biaya\t\t: Rp " << fixed << setprecision(0) << totalBiaya<< "\n";
     }
 }pelanggan;
 
@@ -243,14 +273,24 @@ struct stackCheckout {
     }
     // fungsi untuk push ke stack checkout dari popped queue
     void pushStackCheckout(DataPelanggan *&poppedPelanggan){
-    if (listPelanggan == nullptr){
-        listPelanggan = poppedPelanggan;
+        if (listPelanggan == nullptr){
+            listPelanggan = poppedPelanggan;
+        }
+        else {
+            poppedPelanggan->next = listPelanggan;
+            listPelanggan = poppedPelanggan;
+        }
     }
-    else {
-        poppedPelanggan->next = listPelanggan;
-        listPelanggan = poppedPelanggan;
+    void popStackCheckout(DataPelanggan *&poppedPelanggan){
+        if (listPelanggan == nullptr){
+            poppedPelanggan = nullptr;
+        }
+        else {
+            poppedPelanggan = listPelanggan;
+            listPelanggan = listPelanggan->next;
+            poppedPelanggan->next = nullptr;
+        }
     }
-}
 }stackCheckout;
 
 // struct untuk menyimpan laporan penjualan
@@ -260,5 +300,39 @@ struct salesReport {
     // constructor
     salesReport(){
         listPelanggan = nullptr;
+    }
+    void pushListReport(DataPelanggan *&poppedPelanggan){
+        if (listPelanggan == nullptr){
+            listPelanggan = poppedPelanggan;
+        }
+        else {
+            DataPelanggan *pHelp = listPelanggan;
+            while (pHelp->next != nullptr){
+                pHelp = pHelp->next;
+            }
+            pHelp->next = poppedPelanggan;
+        }
+    }
+    void traversalReport(){
+    DataPelanggan *pHelp = listPelanggan;
+    string namaLayanan;
+    int count = 1;
+        if (listPelanggan == nullptr){
+            cout << "Sales report kosong !\n";
+        } else {
+            system("cls");
+            printBatas();
+            cout << "\t\t  Sales Report\n";
+            printBatas();
+            cout << "Nomor\tNo. Order\tNama Pelanggan\tLayanan\tTotal Biaya\n";
+            while(pHelp != nullptr){
+                string namaLayanan = ::layanan.nama[pHelp->layanan];
+                printBatas();
+                cout << count << "\t" << pHelp->nomorOrder << "\t" << pHelp->nama << "\t" << namaLayanan << "\t"
+                     << "\t" << pHelp->totalBiaya << "\n";
+                pHelp = pHelp->next;
+                count++;
+            }
+        }
     }
 }salesReport;

@@ -42,19 +42,19 @@ struct Menu {
                     menuProses();
                     break;
                 case CHECKOUT:
-                    // menuCheckout();
+                    menuCheckout();
                     break;
                 case REPORT:
-                    // menuReport();
+                    menuReport();
                     break;
                 case UPDATE:
-                    // menuUpdate();
+                    menuUpdate();
                     break;
                 case TUTORIAL:
-                    // menuTutorial
+                    menuTutorial();
                     break;
                 case EXIT:
-                    // dealloc();
+                    dealloc();
                     cout << "Program selesai !";
                     exit(0);
                 default:

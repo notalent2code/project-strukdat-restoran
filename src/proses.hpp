@@ -8,14 +8,18 @@ void menuProses(){
     printBatas();
     cout << "\t\t  Menu Proses Pesanan\n";
 
-    if (queuePelanggan.head == nullptr) {
+    if (queuePelanggan.head == nullptr){
     cout << "Antrian kosong !\n";
     }
     else {
-        DataPelanggan *helpAntrian = nullptr;
-        dequeueAntrian(helpAntrian);
-        stackCheckout.pushStackCheckout(helpAntrian);
-        cout << "Pesanan dengan No. Order : " << helpAntrian->nomorOrder <<
+        DataPelanggan *pHelp = nullptr;
+        dequeueAntrian(pHelp);
+        stackCheckout.pushStackCheckout(pHelp);
+        cout << "Detail pesanan\n";
+        printBatas();
+        pHelp->printDataPelanggan();
+        printBatas();
+        cout << "Pesanan dengan No. Order : " << pHelp->nomorOrder <<
                 " telah diproses !\n";
     }
 }

@@ -1,6 +1,8 @@
 #include <iostream>
+#include <iomanip>
 #include <limits>
 #include <math.h>
+#include <ctime>
 using namespace std;
 
 // variabel untuk menyimpan nomor order
@@ -16,9 +18,11 @@ void fail();
 #include "structs.hpp"
 #include "antrian.hpp"
 #include "proses.hpp"
-// #include "checkout.hpp"
-// #include "report.hpp"
-// #include "exit.hpp"
+#include "checkout.hpp"
+#include "report.hpp"
+#include "update.hpp"
+#include "tutorial.hpp"
+#include "exit.hpp"
 #include "menu.hpp"
 int main(){
     menu.display();
