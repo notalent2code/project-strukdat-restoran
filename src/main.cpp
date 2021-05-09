@@ -37,7 +37,7 @@ void fail(){
 // fungsi mencetak batas dengan simbol samadengan
 void printBatas(){
     for (int i = 0; i < 1; i++){
-        for (int j = 0; j < 58; j++){
+        for (int j = 0; j < 80; j++){
             cout << "=";
         }
         cout << "\n";

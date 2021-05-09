@@ -4,9 +4,9 @@
 void menuProses(){
     system("cls");
     printBatas();
-    cout << "\t\tSISTEM PELAYANAN RESTORAN\n";
+    cout << "\t\t\t   SISTEM PELAYANAN RESTORAN\n";
     printBatas();
-    cout << "\t\t  Menu Proses Pesanan\n";
+    cout << "\t\t\t      Menu Proses Pesanan\n";
 
     if (queuePelanggan.head == nullptr){
     cout << "Antrian kosong !\n";
@@ -15,11 +15,11 @@ void menuProses(){
         DataPelanggan *pHelp = nullptr;
         dequeueAntrian(pHelp);
         stackCheckout.pushStackCheckout(pHelp);
-        cout << "Detail pesanan\n";
         printBatas();
         pHelp->printDataPelanggan();
         printBatas();
         cout << "Pesanan dengan No. Order : " << pHelp->nomorOrder <<
-                " telah diproses !\n";
+                " telah diproses !\n"
+                "Harap segera lakukan checkout pesanan !\n";
     }
 }

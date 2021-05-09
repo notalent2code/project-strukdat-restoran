@@ -18,11 +18,12 @@ struct Menu {
     }
     // fungsi untuk menampilkan menu utama
     void display(){
-        while (true){
+        while(true){
             system("cls");
             printBatas();
-            cout << "\t\tSISTEM PELAYANAN RESTORAN\n";
+            cout << "\t\t\t   SISTEM PELAYANAN RESTORAN\n";
             printBatas();
+            cout << "\t\t\t\t  Menu Utama\n";
             cout << "1. Antrian Pesanan\n"
                  << "2. Proses Pesanan\n"
                  << "3. Checkout\n"

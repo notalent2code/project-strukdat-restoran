@@ -5,9 +5,10 @@ void menuReport(){
     if (::salesReport.listPelanggan == nullptr){
         system("cls");
         printBatas();
-        cout << "\t\tSISTEM PELAYANAN RESTORAN\n";
+        cout << "\t\t\t   SISTEM PELAYANAN RESTORAN\n";
         printBatas();
-        cout << "\t\t  Menu Laporan Penjualan\n";
+        cout << "\t\t\t    Menu Laporan Penjualan\n";
+        printBatas();
         cout << "Laporan penjualan kosong !\n";
         return;
     }
@@ -15,9 +16,10 @@ void menuReport(){
     int nomorOrder, flag = 0;
     system("cls");
     printBatas();
-    cout << "\t\tSISTEM PELAYANAN RESTORAN\n";
+    cout << "\t\t\t   SISTEM PELAYANAN RESTORAN\n";
     printBatas();
-    cout << "\t\t  Menu Laporan Penjualan\n";
+    cout << "\t\t\t    Menu Laporan Penjualan\n";
+    printBatas();
     salesReport.traversalReport();
     printBatas();
     cout << "Lihat detail ? (Y/N) : ";
@@ -39,7 +41,7 @@ void menuReport(){
             if (pHelp->nomorOrder == nomorOrder){
                 system("cls");
                 printBatas();
-                cout << "\t\t\tDetail Pesanan\n";
+                cout << "\t\t\t\tDetail Pesanan\n";
                 printBatas();
                 pHelp->printDataPelanggan();
                 flag = 1;
