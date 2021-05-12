@@ -28,7 +28,6 @@ void fail();
 #include "menu.hpp"
 int main(){
     _inisialisasiMenuPreset();
-    cout<<"anjin";
     system("pause");
     menu.display();
 }
