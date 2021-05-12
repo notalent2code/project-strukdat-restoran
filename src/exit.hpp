@@ -24,9 +24,9 @@ void dealloc(){
 
     if (salesReport.listPelanggan != nullptr){
         DataPelanggan *pHelp = nullptr;
-        while (stackCheckout.listPelanggan != nullptr){
-            pHelp = stackCheckout.listPelanggan;
-            stackCheckout.listPelanggan = stackCheckout.listPelanggan->next;
+        while (salesReport.listPelanggan != nullptr){
+            pHelp = salesReport.listPelanggan;
+            salesReport.listPelanggan = salesReport.listPelanggan->next;
             free(pHelp);
         }
     delete pHelp;        
