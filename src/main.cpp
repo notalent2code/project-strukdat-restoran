@@ -3,6 +3,8 @@
 #include <limits>
 #include <math.h>
 #include <ctime>
+#include <vector>
+#include <string>
 using namespace std;
 
 // variabel untuk menyimpan nomor order
@@ -25,12 +27,16 @@ void fail();
 #include "exit.hpp"
 #include "menu.hpp"
 int main(){
+    _inisialisasiMenuPreset();
+    cout<<"anjin";
+    system("pause");
     menu.display();
 }
 
-// fungsi fail
+// fungsi fail, clear flag cin dan clear cin
 void fail(){
     std::cin.clear();
+    
     std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 

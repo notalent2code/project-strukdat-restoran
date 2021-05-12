@@ -2,7 +2,7 @@
 
 // fungsi untuk traversal laporan penjualan
 void menuReport(){
-    if (::salesReport.listPelanggan == nullptr){
+    if (::salesReport.listPelanggan.empty()){
         system("cls");
         printBatas();
         cout << "\t\t\t   SISTEM PELAYANAN RESTORAN\n";
@@ -36,17 +36,15 @@ void menuReport(){
                 cout << "Input salah !\n"; 
             }
         }
-        DataPelanggan *pHelp = ::salesReport.listPelanggan;
-        while (pHelp != nullptr){
-            if (pHelp->nomorOrder == nomorOrder){
+        for(int i=0;salesReport.listPelanggan[i];i++){
+            if (salesReport.listPelanggan[i]->nomorOrder == nomorOrder){
                 system("cls");
                 printBatas();
                 cout << "\t\t\t\tDetail Pesanan\n";
                 printBatas();
-                pHelp->printDataPelanggan();
+                salesReport.listPelanggan[i]->printDataPelanggan();
                 flag = 1;
             }
-            pHelp = pHelp->next;
         }
         if (flag == 0){
             cout << "Nomor order tidak tersedia !\n";

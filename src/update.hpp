@@ -2,41 +2,36 @@
 
 // fungsi untuk cek stok hidangan
 void cekStok(){
-    int size = sizeof(::detail.hidangan)/sizeof(::detail.hidangan[0]);
     // print data hidangan
-    cout << "No. " << setw(22) << left << "Nama Hidangan" << setw(2) << left << "Stok\t   "<< "Harga\n";
-    for (int i=1; i<size; i++){
-        cout << setw(4) << left << i << setw(22) << left << ::detail.hidangan[i] << setw(2) << ::detail.stok[i] 
-             << " pcs " << "  Rp " << ::detail.harga[i] << "\n";
-    }
+    printMenu();
 }
 
 // fungsi untuk update stok hidangan
 void updateStok(){
     int select, stok;
-    int size = sizeof(::detail.hidangan)/sizeof(::detail.hidangan[0]);
-    cout << "No. " << setw(22) << left << "Nama Hidangan" << setw(2) << left << "Stok\t   "<< "Harga\n";
-    for (int i=1; i<size; i++){
-        cout << setw(4) << left << i << setw(22) << left << ::detail.hidangan[i] << setw(2) << ::detail.stok[i] 
-             << " pcs " << "  Rp " << ::detail.harga[i] << "\n";
-    }
-    printBatas();
+    printMenu();
     while(true){
         cout << "Pilih hidangan (1-10) : ";
         cin >> select;
-        if (!cin.fail() && select < ::detail.NASI && select > ::detail.AIR){
+        if(cin.fail()){
+                fail();
+                cout << "Input salah !\n";
+                continue;
+            }
+
+        if (select < 1){
             cout << "Input salah !\n";
-            break;
-        }
-        else if (!cin.fail() && (select >= ::detail.NASI && select <= ::detail.AIR)){
+            continue;
+        }     
+        else {
             while(true){
                 cout << "Tambahkan berapa ? : ";
                 stok = 0;
                 cin >> stok;
                 if (!cin.fail() && stok > 0){
-                    ::detail.stok[select] += stok;
+                    menuHidanganRestoran[select]->stok += stok;
                     printBatas();
-                    cout << "Penambahan stok " << ::detail.hidangan[select] << " sebanyak " << stok << " pcs berhasil !\n";
+                    cout << "Penambahan stok " << menuHidanganRestoran[select]->nama << " sebanyak " << stok << " pcs berhasil !\n";
                     break;
                 }
                 fail();
@@ -44,8 +39,6 @@ void updateStok(){
             }
             break;
         }
-        fail();
-        cout << "Input salah !\n";
     }
 }
 

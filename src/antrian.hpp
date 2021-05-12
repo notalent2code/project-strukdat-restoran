@@ -1,59 +1,12 @@
 // file header untuk fungsi antrian pesanan
 
-// fungsi untuk enqueue dengan skala prioritas
-void enqueueAntrian(){
-    DataPelanggan *newPelanggan = new DataPelanggan;
-    newPelanggan->insertDataPelanggan();
-    DataPelanggan *pPrev = nullptr;
-    DataPelanggan *pHelp = queuePelanggan.head;
-    if (queuePelanggan.head == nullptr && queuePelanggan.tail == nullptr){
-        queuePelanggan.head = newPelanggan;
-        queuePelanggan.tail = newPelanggan;
-    }
-    else {
-        while (newPelanggan->layanan <= pHelp->layanan){
-            if (pHelp->next == nullptr){
-                break;
-            }
-        pPrev = pHelp;
-        pHelp = pHelp->next;
-        }
-        if (pHelp == queuePelanggan.head && newPelanggan->layanan > pHelp->layanan){
-            newPelanggan->next = pHelp;
-            queuePelanggan.head = newPelanggan;
-        }
-        else if (pHelp == queuePelanggan.tail && newPelanggan->layanan <= pHelp->layanan){
-            pHelp->next = newPelanggan;
-            queuePelanggan.tail = newPelanggan;
-        }
-        else {
-            pPrev->next = newPelanggan;
-            newPelanggan->next = pHelp;
-        }
-    }
-}
 
-// fungsi untuk dequeue antrian
-void dequeueAntrian(DataPelanggan *&temp){
-    temp = queuePelanggan.head;
-    if (queuePelanggan.head == nullptr && queuePelanggan.tail == nullptr){
-        temp = nullptr;
-    }
-    else if (queuePelanggan.head->next == nullptr){
-        queuePelanggan.head = nullptr;
-        queuePelanggan.tail = nullptr;
-    }
-    else{
-        temp = queuePelanggan.head;
-        queuePelanggan.head = queuePelanggan.head->next; 
-    }
-    temp->next = nullptr;
-}
+
+
+
 
 // fungsi untuk traversal antrian
 void traversalAntrian(){
-    DataPelanggan *pHelp = queuePelanggan.head;
-    int count = 1;
     if (queuePelanggan.head == nullptr){
         cout << "Antrian kosong !\n";
     } else {
@@ -62,14 +15,12 @@ void traversalAntrian(){
         cout << "\t\t\t   SISTEM PELAYANAN RESTORAN\n";
         printBatas();
         cout << "\t\t\t      Menu Antrian Pesanan\n";
-        do {
+        for(int count = 0;queuePelanggan[count];count++) {
             printBatas();
-            cout << "Antrian ke-" << count << "\n";
+            cout << "Antrian ke-" << count+1 << "\n";
             printBatas();
-            pHelp->printDataPelanggan();
-            pHelp = pHelp->next;
-            count++;
-        } while(pHelp != nullptr);
+            queuePelanggan[count]->printDataPelanggan();
+        }
     }
 }
 
@@ -119,6 +70,7 @@ void detailPesanan(){
 
 // fungsi untuk menu antrian pesanan
 void menuAntrian(){
+    DataPelanggan *newPelanggan = new DataPelanggan;
     enum enumMenuAntrianPesanan{
         TAMBAHPESANAN = 1,
         LIHATANTRIAN,
@@ -139,7 +91,8 @@ void menuAntrian(){
     printBatas();
     switch (select){
         case TAMBAHPESANAN:
-            enqueueAntrian();
+            newPelanggan->insertDataPelanggan();
+            queuePelanggan.priority_enqueue(newPelanggan);
             break;
         case LIHATANTRIAN:
             traversalAntrian();

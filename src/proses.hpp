@@ -13,8 +13,8 @@ void menuProses(){
     }
     else {
         DataPelanggan *pHelp = nullptr;
-        dequeueAntrian(pHelp);
-        stackCheckout.pushStackCheckout(pHelp);
+        queuePelanggan.dequeue(pHelp);
+        queueCheckout.enqueue(pHelp);
         printBatas();
         pHelp->printDataPelanggan();
         printBatas();
