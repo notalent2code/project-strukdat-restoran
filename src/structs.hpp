@@ -622,14 +622,24 @@ struct DataPelanggan {
     }
     //copy constructor
     DataPelanggan(const DataPelanggan &ref){
+        cout<<"yuuhuu";
+        // system("pause");
         nomorOrder = ref.nomorOrder;
+        cout<<1;
         nama = ref.nama;
+        cout<<2;
         timestamp = ref.timestamp;
+        cout<<3;
         layanan = ref.layanan;
+        cout<<4;
         biayaTotal = ref.biayaTotal;
+        cout<<5;
         biayaLayanan = ref.biayaLayanan;
+        cout<<6;
         pesanan = ref.pesanan;
+        cout<<7;
         next = ref.next;
+        cout<<8;
         return;
     }
     // return priority dari layanan sekarang
@@ -708,7 +718,7 @@ struct DataPelanggan {
         printMenu();
         while (true){
             int select;
-            cout << "Pilih hidangan (1-10) : ";
+            cout << "Pilih hidangan : ";
             cin >> select;
             newHidangan->hidangan = menuHidanganRestoran[select-1];
             for(int i = 0;pesanan[i];i++){
