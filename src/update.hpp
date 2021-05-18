@@ -11,7 +11,7 @@ void updateStok(){
     int select, stok;
     printMenu();
     while(true){
-        cout << "Pilih hidangan (1-10) : ";
+        cout << "Pilih hidangan : ";
         cin >> select;
         if(cin.fail()){
                 fail();
@@ -24,11 +24,13 @@ void updateStok(){
             continue;
         }     
         else {
+            select++;
             while(true){
                 cout << "Tambahkan berapa ? : ";
                 stok = 0;
                 cin >> stok;
                 if (!cin.fail() && stok > 0){
+                    pushEditAction(&menuHidanganRestoran[select]->stok, menuHidanganRestoran[select]->stok + stok);
                     menuHidanganRestoran[select]->stok += stok;
                     printBatas();
                     cout << "Penambahan stok " << menuHidanganRestoran[select]->nama << " sebanyak " << stok << " pcs berhasil !\n";

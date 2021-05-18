@@ -8,13 +8,15 @@ void menuProses(){
     printBatas();
     cout << "\t\t\t      Menu Proses Pesanan\n";
 
-    if (queuePelanggan.head == nullptr){
+    if (queuePelanggan.empty()){
     cout << "Antrian kosong !\n";
     }
     else {
-        DataPelanggan *pHelp = nullptr;
+        DataPelanggan *pHelp = queuePelanggan.head;
+        pushDeleteAction(pHelp,&queuePelanggan);
         queuePelanggan.dequeue(pHelp);
         queueCheckout.enqueue(pHelp);
+        pushAddAction(pHelp,&queueCheckout,REPEAT);
         printBatas();
         pHelp->printDataPelanggan();
         printBatas();

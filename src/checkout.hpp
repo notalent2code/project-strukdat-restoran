@@ -14,24 +14,27 @@ void menuCheckout(){
         return;
     }
     else {
-        DataPelanggan *poppedPelanggan = nullptr;
+        DataPelanggan *poppedPelanggan = queueCheckout.head;
         cout << "Detail Pesanan\n";
+        pushDeleteAction(poppedPelanggan,&queueCheckout);
         queueCheckout.dequeue(poppedPelanggan)->printDataPelanggan();
         while(true){
             printBatas();
             cout << "Cash\t: Rp ";
             cin >> cash;
-            if (!cin.fail() && (cash > 0 && cash >= poppedPelanggan->biayaTotal())){
+            if (!cin.fail() && (cash > 0 && cash >= poppedPelanggan->biayaTotal)){
                 break;
             }
             fail();
             cout << "Input salah !\n";
         }
         change = 0;
-        change = cash - poppedPelanggan->biayaTotal();
+        change = cash - poppedPelanggan->biayaTotal;
         if (change > 0){
             cout << "Change\t: Rp " << change << "\n";
         }
-        salesReport.pushListReport(poppedPelanggan);                    
+       
+        salesReport.listPelanggan += (poppedPelanggan);    
+        pushAddAction(poppedPelanggan,&(salesReport.listPelanggan),REPEAT);                
     }
 }

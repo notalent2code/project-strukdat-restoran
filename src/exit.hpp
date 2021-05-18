@@ -5,6 +5,8 @@ void dealloc(){
     queuePelanggan.clear();
     queueCheckout.clear();
     salesReport.listPelanggan.clear();
+    UndoStack.clear();
+    RedoStack.clear();
 
     /*
     if (queuePelanggan.head != nullptr){
