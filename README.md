@@ -24,7 +24,7 @@ Manfaat pembuatan program ini adalah untuk melatih pemahaman dan kreativitas pra
 
 ## Penjelasan Aplikasi
 Program sistem pelayanan restoran direncanakan memiliki enam fungsi utama, antara lain :  
- - Antrian Pesanan : Berfungsi untuk menambahkan pesanan, membatalkan pesanan, melihat antrian, dan mencetak detail dari pesanan tertentu berdasarkan nomor pesanan
+ - Antrian Pesanan : Berfungsi untuk menambahkan pesanan, melihat antrian, dan mencetak detail dari pesanan tertentu berdasarkan nomor pesanan
  - Proses Pesanan : Berfungsi memproses pesanan pelanggan dengan memperhatikan skala prioritas yang diinputkan pada fungsi tambah pesanan
  - Checkout : Pembayaran pesanan oleh pelanggan
  - Laporan Penjualan : Daftar transaksi yang telah dilakukan
