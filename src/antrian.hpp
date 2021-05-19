@@ -1,10 +1,5 @@
 // file header untuk fungsi antrian pesanan
 
-
-
-
-
-
 // fungsi untuk traversal antrian
 void traversalAntrian(){
     if (queuePelanggan.head == nullptr){
@@ -119,7 +114,7 @@ void menuAntrian(){
         cout << "\t\t\t      Menu Antrian Pesanan\n"
             "1. Tambah Pesanan\n"
             "2. Lihat Antrian\n"
-            "3. Cetak Detail Pesanan\n";
+            "3. Cetak Detail Pesanan\n"
             "4. Hapus Antrian\n";
             printBatas();
     int select;           
@@ -130,11 +125,11 @@ void menuAntrian(){
     switch (select){
         case TAMBAHPESANAN:{
             DataPelanggan *newPelanggan = new DataPelanggan;
-            cout<<1;
+            // cout<<" ";
             newPelanggan->insertDataPelanggan();
-            cout<<2;
+            // cout<<" ";
             queuePelanggan.priority_enqueue(newPelanggan);
-            cout<<3;
+            // cout<<" ";
             pushAddAction(newPelanggan, &queuePelanggan, ADD_PELANGGAN);
             for(int i = 0;newPelanggan->pesanan[i];i++){
                 auto &stok = (newPelanggan->pesanan[i]->hidangan->stok);
@@ -142,7 +137,7 @@ void menuAntrian(){
                 pushEditAction(&stok, stok - quantity ,REPEAT);
                 stok -= quantity;
             }
-            cout<<4;
+            // cout<<4;
             break;}
         case LIHATANTRIAN:
             traversalAntrian();

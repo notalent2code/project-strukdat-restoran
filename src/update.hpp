@@ -24,7 +24,7 @@ void updateStok(){
             continue;
         }     
         else {
-            select++;
+            select--;
             while(true){
                 cout << "Tambahkan berapa ? : ";
                 stok = 0;

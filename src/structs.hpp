@@ -1,13 +1,19 @@
 // file header untuk struct
 
-// FUNGSI
+// FUNGSI-FUNGSI
 // inisialisasi menu hidangan bawaan/preset
 void _inisialisasiMenuPreset();
 // print menu hidangan restoram
 void printMenu();
 // fungsi untuk generate timestamp
 string getTime();
-// fungsi untuk traversal laporan penjualan
+
+// enum untuk undo-redo
+enum code{
+    DELETE_PELANGGAN = 10,
+    ADD_PELANGGAN = 11,
+    REPEAT = 2,
+};
 
 struct Layanan;
 template<typename T>
@@ -31,10 +37,10 @@ struct action{
     }
 };
 
+// fungsi untuk traversal laporan penjualan
 void traversalReport(List<DataPelanggan> &listPelanggan);
 template<typename T, typename LT>
 void pushDeleteAction(T *node, int index, LT list);
-
 
 template<typename T>
 struct Stack{
@@ -191,7 +197,7 @@ struct ListQueue{
         T *pPrev = nullptr;
         T *pHelp = head;
         if (head == nullptr || tail == nullptr){
-            cout<<0;
+            // cout<<0;
             head = newNode;
             tail = newNode;
             return;
@@ -225,9 +231,6 @@ struct ListQueue{
     }
     // fungsi untuk enqueue tanpa skala prioritas
     void enqueue(T *newNode){
-        T *pPrev = nullptr;
-        int count = 0;
-
         if (head == nullptr && tail == nullptr){
             head = newNode;
             tail = newNode;
@@ -504,7 +507,7 @@ int editNode(T *oldNode, T newValue, int code = 0){
     return code;
 }
 template<typename T>
-int pushEditAction(T *oldNode, T newValue, int code = 0){
+void pushEditAction(T *oldNode, T newValue, int code = 0){
     action *aksi = new action;
     aksi->undo = std::bind(editNode<T>, oldNode, *oldNode, code);
     aksi->redo = std::bind(editNode<T>, oldNode, newValue, code);
@@ -512,24 +515,24 @@ int pushEditAction(T *oldNode, T newValue, int code = 0){
     RedoStack.clear();
 }
 template<typename T, typename LT>
-int pushDeleteAction(T *node, LT *list, int code = 0){
+void pushDeleteAction(T *node, LT *list, int code = 0){
     int index = list->index(node);
     // cout<<"INDEX "<<index<<endl;
-    T *bak = new T(*node);
+    // T *bak = new T(*node);
     action *aksi = new action;
-    aksi->undo = std::bind(addNode<T, LT>, list, index, bak, code);
-    aksi->redo = std::bind(removeNode<T, LT>, list, index, bak, code);
+    aksi->undo = std::bind(addNode<T, LT>, list, index, node, code);
+    aksi->redo = std::bind(removeNode<T, LT>, list, index, node, code);
     UndoStack.push(aksi);
     RedoStack.clear();
 }
 template<typename T, typename LT>
-int pushAddAction(T *node, LT *list, int code = 0){
+void pushAddAction(T *node, LT *list, int code = 0){
     int index = list->index(node);
     // cout<<"INDEX "<<index<<endl;
-    T *bak = new T(*node);
+    // T *bak = new T(*node);
     action *aksi = new action;
-    aksi->redo = std::bind(addNode<T, LT>, list, index, bak, code);
-    aksi->undo = std::bind(removeNode<T, LT>, list, index, bak, code);
+    aksi->redo = std::bind(addNode<T, LT>, list, index, node, code);
+    aksi->undo = std::bind(removeNode<T, LT>, list, index, node, code);
     UndoStack.push(aksi);
     RedoStack.clear();
 }
@@ -621,27 +624,28 @@ struct DataPelanggan {
         next = nullptr;
     }
     //copy constructor
-    DataPelanggan(const DataPelanggan &ref){
-        cout<<"yuuhuu";
-        // system("pause");
-        nomorOrder = ref.nomorOrder;
-        cout<<1;
-        nama = ref.nama;
-        cout<<2;
-        timestamp = ref.timestamp;
-        cout<<3;
-        layanan = ref.layanan;
-        cout<<4;
-        biayaTotal = ref.biayaTotal;
-        cout<<5;
-        biayaLayanan = ref.biayaLayanan;
-        cout<<6;
-        pesanan = ref.pesanan;
-        cout<<7;
-        next = ref.next;
-        cout<<8;
-        return;
-    }
+    // DataPelanggan(const DataPelanggan &ref){
+    //     cout<<"yuuhuu";
+    //     // system("pause");
+    //     nomorOrder = ref.nomorOrder;
+    //     cout<<1;
+    //     nama = ref.nama;
+    //     cout<<2;
+    //     timestamp = ref.timestamp;
+    //     cout<<3;
+    //     layanan = ref.layanan;
+    //     cout<<4;
+    //     biayaTotal = ref.biayaTotal;
+    //     cout<<5;
+    //     biayaLayanan = ref.biayaLayanan;
+    //     cout<<6;
+    //     pesanan = ref.pesanan;
+    //     cout<<7;
+    //     next = ref.next;
+    //     cout<<8;
+    //     return;
+    // }
+
     // return priority dari layanan sekarang
     int priority(){
         return layanan->priority;
@@ -653,7 +657,8 @@ struct DataPelanggan {
     
     // fungsi untuk insersi data pelanggan
     void insertDataPelanggan(){
-        int count = 1, select;
+        int count = 1;
+        size_t select;
         char decision;
         cin.ignore();
         cout << "Masukkan nama pelanggan : ";
@@ -819,8 +824,6 @@ void traversalReport(List<DataPelanggan> &listPelanggan){
     }
 }
 
-
-
 // DEFINISI FUNGSI
 void _inisialisasiMenuPreset(){
     for(int i = 0;i<10;i++)
@@ -841,133 +844,47 @@ string getTime(){
     return ctime(&curr_time);
 }
 
-
-
-/*
-// void addNode(ListQueue<DataPelanggan> list ,int index, DataPelanggan *node){
-//     list.insert(index, node);
-// }
-// void removeNode(ListQueue<DataPelanggan> list ,int index, DataPelanggan *node){
-//     list.remove(index);
-// }
-// void addNode(List<HidanganRestoran> list ,int index, HidanganRestoran *node){
-//     list.insert(index, node);
-// }
-// void addNode(List<HidanganRestoran> list ,int index, HidanganRestoran *node){
-//     list.insert(index, node);
-// }
-
-// void replaceNode(HidanganPelanggan *oldNode, HidanganPelanggan *newNode){
-//     oldNode = newNode;
-// }
-// void replaceNode(HidanganPelanggan oldNode, HidanganPelanggan newNode){
-//     oldNode = newNode;
-// }
-// void replaceNode(HidanganRestoran *oldNode, HidanganRestoran *newNode){
-//     oldNode = newNode;
-// }
-// void replaceNode(HidanganRestoran oldNode, HidanganRestoran newNode){
-//     oldNode = newNode;
-// }
-struct AR_node{
-    AR_node *next;
-    int type = NULL;
-
-    function<void()> bound = std::bind(replaceNode<AR_node>, next, next);
-
-
-    enum Enum{
-        Upg = 11,
-        Ume = 12,
-        Uup = 13,
-        Ust = 14,
-        Rpg = 21,
-        Rme = 22,
-        Rup = 23,
-        Rst = 24
-    };
-    union Undo
-    {
-        std::function<void(ListQueue<DataPelanggan>  ,int, DataPelanggan *)> pelanggan;
-        std::function<void(ListQueue<HidanganRestoran>  ,int, HidanganRestoran *)> menu;
-        std::function<void(HidanganPelanggan *, HidanganPelanggan *)> upgrade;
-        std::function<void(HidanganRestoran *, HidanganRestoran *)> stok;  
-    }undo;
-    union Redo
-    {
-        std::function<void(ListQueue<DataPelanggan>  ,int, DataPelanggan *)> pelanggan;
-        std::function<void(ListQueue<HidanganRestoran>  ,int, HidanganRestoran *)> menu;
-        std::function<void(HidanganPelanggan *, HidanganPelanggan *)> upgrade;
-        std::function<void(HidanganRestoran *, HidanganRestoran *)> stok; 
-    }redo;
-    void bind(ListQueue<DataPelanggan>  List, int Index, DataPelanggan *Pelanggan){
-        bound();
-        switch(type){
-            case Upg:
-                undo.pelanggan;
+// fungsi untuk undo
+void _undo(){
+    if(UndoStack.top){
+        int code = UndoStack.top->undo();
+        auto temp = UndoStack.pop();
+        // cout<<"code"<< code;
+        switch(code){
+            case DELETE_PELANGGAN:
+                globalNomorOrder++;
                 break;
-            case Ume:
-                undo.menu;
+            case ADD_PELANGGAN:
+                globalNomorOrder--;
                 break;
-            case Uup:
-                undo.upgrade;
+            case 2:
+                _undo();
                 break;
-            case Ust:
-                undo.stok;
+            default:
                 break;
-            case Rpg:
-                redo.pelanggan;
-                break;
-            case Rme:
-                redo.menu;
-                break;
-            case Rup:
-                redo.upgrade;
-                break;
-            case Rst:
-                redo.stok;
-                break;
-        }
+        } 
+        RedoStack.push(temp);
     }
+}
 
-};
-*/
-
-
-
-
-
-// stack checkout diganti dengan queue
-/*
-struct stackCheckout {
-    DataPelanggan *listPelanggan;
-
-    // constructor
-    stackCheckout(){
-        listPelanggan = nullptr;
+// fungsi untuk redo
+void _redo(){
+    if(RedoStack.top){
+        int code = RedoStack.top->redo();
+        auto temp = RedoStack.pop();
+        switch(code){
+            case DELETE_PELANGGAN:
+                globalNomorOrder--;
+                break;
+            case ADD_PELANGGAN:
+                globalNomorOrder++;
+                break;
+            case REPEAT:
+                _redo();
+                break;
+            default:
+                break;
+        }
+        UndoStack.push(temp);
     }
-
-    // fungsi untuk push ke stack checkout dari popped queue
-    void pushStackCheckout(DataPelanggan *&poppedPelanggan){
-        if (listPelanggan == nullptr){
-            listPelanggan = poppedPelanggan;
-        }
-        else {
-            poppedPelanggan->next = listPelanggan;
-            listPelanggan = poppedPelanggan;
-        }
-    }
-
-    //fungsi untuk pop stack checkout
-    void popStackCheckout(DataPelanggan *&poppedPelanggan){
-        if (listPelanggan == nullptr){
-            poppedPelanggan = nullptr;
-        }
-        else {
-            poppedPelanggan = listPelanggan;
-            listPelanggan = listPelanggan->next;
-            poppedPelanggan->next = nullptr;
-        }
-    }
-}stackCheckout;
-*/
+}

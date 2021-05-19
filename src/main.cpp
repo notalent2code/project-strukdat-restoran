@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 #include <functional>
-#include <type_traits>
+// #include <type_traits>
 
 using namespace std;
 
@@ -19,12 +19,6 @@ void printBatas(string title = "", char filler = '=', int count = 80);
 // prototype fungsi fail
 void fail();
 
-enum code{
-    DELETE_PELANGGAN = 10,
-    ADD_PELANGGAN = 11,
-    REPEAT = 2,
-};
-
 
 // header file yang menyimpan data structs
 #include "structs.hpp"
@@ -36,7 +30,7 @@ enum code{
 #include "tutorial.hpp"
 #include "exit.hpp"
 #include "menu.hpp"
-#include "ui.hpp"
+
 
 void pri(string x){
     cout<<x;
