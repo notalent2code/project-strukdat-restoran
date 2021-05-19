@@ -18,5 +18,8 @@ void menuTutorial(){
         "5. Update Stok \t\t: Berfungsi untuk melihat semua stok hidangan\n"
         "\t\t\t  dan mengupdate stok hidangan tertentu\n"
         "6. Tutorial Program\t: Berfungsi untuk menampilkan tata cara pengoperasian program\n"
-        "7. Exit Program\t\t: Fungsi untuk keluar dari program\n";
+        "7. Undo\t\t\t: Berfungsi untuk membatalkan perintah yang sudah dilakukan sebelumnya\n"
+        "8. Redo\t\t\t: Berfungsi untuk mengulang perintah yang sudah dibatalkan sebelumnya\n"
+        "9. Exit Program\t\t: Fungsi untuk keluar dari program\n";
+
 }
