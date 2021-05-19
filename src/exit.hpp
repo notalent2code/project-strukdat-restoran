@@ -2,6 +2,13 @@
 
 // dealokasi memori seluruh pointer yang digunakan
 void dealloc(){
+    queuePelanggan.clear();
+    queueCheckout.clear();
+    salesReport.listPelanggan.clear();
+    UndoStack.clear();
+    RedoStack.clear();
+
+    /*
     if (queuePelanggan.head != nullptr){
         DataPelanggan *pHelp = nullptr;
         while (queuePelanggan.head != nullptr){
@@ -31,4 +38,5 @@ void dealloc(){
         }
     delete pHelp;        
     }
+    */
 }

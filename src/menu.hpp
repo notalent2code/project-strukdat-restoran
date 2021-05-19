@@ -1,4 +1,6 @@
 // file header untuk fungsi menu utama
+
+
 // struct menu utama
 struct Menu {
     int select;
@@ -10,6 +12,8 @@ struct Menu {
         REPORT,
         UPDATE,
         TUTORIAL,
+        UNDO,
+        REDO,
         EXIT
     };
     // constructor
@@ -30,9 +34,11 @@ struct Menu {
                  << "4. Laporan Penjualan\n"
                  << "5. Update Stok Makanan\n"
                  << "6. Cara Penggunaan Program\n"
-                 << "7. Exit Program\n";
+                 << "7. Undo\n"
+                 << "8. Redo\n"
+                 << "9. Exit Program\n";
             printBatas();
-            cout << "Masukkan pilihan (1-7) : "; 
+            cout << "Masukkan pilihan (1-9) : "; 
             cin >> select;
 
             switch(select){
@@ -54,10 +60,17 @@ struct Menu {
                 case TUTORIAL:
                     menuTutorial();
                     break;
+                case UNDO:
+                    _undo();
+                    break;
+                case REDO:
+                    _redo();
+                    break;                    
                 case EXIT:
                     dealloc();
                     cout << "Program selesai !";
                     exit(0);
+                    break;
                 default:
                     if (cin.fail()){
                         fail();
